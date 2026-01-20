@@ -19,6 +19,9 @@ STAZIONI_ENDPOINT = f"{BASE_URL}/ib47-atvt.json"
 DATI_ENDPOINT = f"{BASE_URL}/nicp-bhqi.json"
 PROVINCIA = "VA"
 
+# Comuni da ESCLUDERE (centraline non attive)
+COMUNI_ESCLUSI = ["GALLARATE", "LONATE POZZOLO", "SOMMA LOMBARDO"]
+
 # Mapping nomi inquinanti dall'API ai nomi standard
 INQUINANTI_NORMALIZZATI = {
     "PM10": "PM10",
@@ -26,6 +29,14 @@ INQUINANTI_NORMALIZZATI = {
     "Particelle sospese PM2.5": "PM2.5",
     "Biossido di Azoto": "NO2",
     "Ossidi di Azoto": "NO2"
+}
+
+# Mapping per formattazione corretta nomi comuni
+NOMI_COMUNI = {
+    "VARESE": "Varese",
+    "BUSTO ARSIZIO": "Busto Arsizio",
+    "SARONNO": "Saronno",
+    "FERNO": "Ferno"
 }
 
 # Soglie per i colori
@@ -40,6 +51,14 @@ SCRIPT_DIR = Path(__file__).parent
 DATA_DIR = SCRIPT_DIR.parent / "data"
 DOCS_DIR = SCRIPT_DIR.parent / "docs"
 DATA_DIR.mkdir(exist_ok=True)
+
+
+def formatta_comune(nome):
+    """Formatta correttamente il nome del comune."""
+    if nome.upper() in NOMI_COMUNI:
+        return NOMI_COMUNI[nome.upper()]
+    # Fallback: prima lettera maiuscola per ogni parola
+    return ' '.join(word.capitalize() for word in nome.split())
 
 
 def fetch_stazioni():
@@ -57,6 +76,12 @@ def fetch_stazioni():
     
     stazioni_filtrate = []
     for s in stazioni:
+        comune = s.get("comune", "").upper()
+        
+        # Escludi comuni non attivi
+        if comune in COMUNI_ESCLUSI:
+            continue
+        
         tipo_sensore = s.get("nometiposensore", "")
         
         inquinante_norm = None
@@ -70,7 +95,8 @@ def fetch_stazioni():
                 "idsensore": s.get("idsensore"),
                 "idstazione": s.get("idstazione"),
                 "nomestazione": s.get("nomestazione"),
-                "comune": s.get("comune"),
+                "comune": comune,
+                "comune_formatted": formatta_comune(comune),
                 "provincia": s.get("provincia"),
                 "inquinante": inquinante_norm,
                 "unitamisura": s.get("unitamisura", "µg/m³"),
@@ -78,7 +104,7 @@ def fetch_stazioni():
                 "lng": s.get("lng")
             })
     
-    print(f"Trovate {len(stazioni_filtrate)} stazioni/sensori per {PROVINCIA}")
+    print(f"Trovate {len(stazioni_filtrate)} stazioni/sensori per {PROVINCIA} (escluse centraline non attive)")
     return stazioni_filtrate
 
 
@@ -158,10 +184,9 @@ def calcola_superamenti(dati_anno, stazioni):
         if not data_str:
             continue
         
-        chiave = info["nomestazione"]
+        chiave = info["comune_formatted"]
         if chiave not in superamenti_per_stazione:
             superamenti_per_stazione[chiave] = {
-                "comune": info["comune"],
                 "valori_giornalieri": {}
             }
         
@@ -170,7 +195,7 @@ def calcola_superamenti(dati_anno, stazioni):
         superamenti_per_stazione[chiave]["valori_giornalieri"][data_str].append(valore)
     
     risultati = []
-    for stazione, dati in superamenti_per_stazione.items():
+    for comune, dati in superamenti_per_stazione.items():
         giorni_sup = 0
         for data, valori in dati["valori_giornalieri"].items():
             media = sum(valori) / len(valori)
@@ -178,8 +203,7 @@ def calcola_superamenti(dati_anno, stazioni):
                 giorni_sup += 1
         
         risultati.append({
-            "stazione": stazione,
-            "comune": dati["comune"],
+            "comune": comune,
             "giorni_superamento": giorni_sup
         })
     
@@ -193,24 +217,32 @@ def prepara_dati_grafici(dati, stazioni):
     
     dati_grafici = {
         "ultimo_aggiornamento": datetime.now().isoformat(),
-        "stazioni": [],
         "comuni": [],
+        "soglie": SOGLIE,
         "serie_temporali": {},
-        "confronto_stazioni": {},
-        "soglie": SOGLIE
+        "dati_oggi": {},  # Nuovo: dati giornalieri per "La qualità dell'aria oggi"
+        "inquinanti_disponibili": {}  # Nuovo: traccia quali inquinanti sono disponibili per comune
     }
     
+    # Estrai lista comuni unici (formattati)
     comuni_set = set()
-    stazioni_set = set()
     for s in stazioni:
-        comuni_set.add(s["comune"])
-        stazioni_set.add(s["nomestazione"])
+        comuni_set.add(s["comune_formatted"])
     
     dati_grafici["comuni"] = sorted(list(comuni_set))
-    dati_grafici["stazioni"] = sorted(list(stazioni_set))
     
+    # Organizza i dati per comune e inquinante
     dati_per_comune = {}
-    dati_per_stazione = {}
+    
+    # Trova la data più recente nei dati
+    date_disponibili = set()
+    for record in dati:
+        data = record.get("data", "")[:10]
+        if data:
+            date_disponibili.add(data)
+    
+    data_oggi = max(date_disponibili) if date_disponibili else datetime.now().strftime("%Y-%m-%d")
+    dati_grafici["data_riferimento"] = data_oggi
     
     for record in dati:
         idsensore = record.get("idsensore")
@@ -218,8 +250,7 @@ def prepara_dati_grafici(dati, stazioni):
             continue
         
         info = sensore_map[idsensore]
-        comune = info["comune"]
-        stazione = info["nomestazione"]
+        comune = info["comune_formatted"]
         inquinante = info["inquinante"]
         
         valore = record.get("valore")
@@ -242,17 +273,15 @@ def prepara_dati_grafici(dati, stazioni):
         if data not in dati_per_comune[comune][inquinante]:
             dati_per_comune[comune][inquinante][data] = []
         dati_per_comune[comune][inquinante][data].append(valore)
-        
-        chiave_stazione = f"{stazione}|{comune}"
-        if chiave_stazione not in dati_per_stazione:
-            dati_per_stazione[chiave_stazione] = {}
-        if inquinante not in dati_per_stazione[chiave_stazione]:
-            dati_per_stazione[chiave_stazione][inquinante] = []
-        dati_per_stazione[chiave_stazione][inquinante].append(valore)
     
+    # Calcola serie temporali e dati di oggi
     for comune, inquinanti in dati_per_comune.items():
         dati_grafici["serie_temporali"][comune] = {}
+        dati_grafici["dati_oggi"][comune] = {}
+        dati_grafici["inquinanti_disponibili"][comune] = []
+        
         for inquinante, date_valori in inquinanti.items():
+            # Serie temporale
             serie = []
             for data, valori in sorted(date_valori.items()):
                 media = sum(valori) / len(valori)
@@ -260,23 +289,18 @@ def prepara_dati_grafici(dati, stazioni):
                     "data": data,
                     "valore": round(media, 1)
                 })
-            dati_grafici["serie_temporali"][comune][inquinante] = serie
-    
-    for inquinante in ["PM10", "PM2.5", "NO2"]:
-        dati_grafici["confronto_stazioni"][inquinante] = []
-        for chiave_stazione, inq_valori in dati_per_stazione.items():
-            if inquinante in inq_valori:
-                stazione, comune = chiave_stazione.split("|")
-                valori = inq_valori[inquinante]
-                media = sum(valori) / len(valori)
-                dati_grafici["confronto_stazioni"][inquinante].append({
-                    "stazione": stazione,
-                    "comune": comune,
-                    "valore": round(media, 1)
-                })
-        dati_grafici["confronto_stazioni"][inquinante].sort(
-            key=lambda x: x["valore"], reverse=True
-        )
+            
+            if serie:  # Solo se ci sono dati
+                dati_grafici["serie_temporali"][comune][inquinante] = serie
+                dati_grafici["inquinanti_disponibili"][comune].append(inquinante)
+                
+                # Dati di oggi (o ultimo giorno disponibile)
+                if data_oggi in date_valori:
+                    media_oggi = sum(date_valori[data_oggi]) / len(date_valori[data_oggi])
+                    dati_grafici["dati_oggi"][comune][inquinante] = round(media_oggi, 1)
+                elif serie:
+                    # Usa l'ultimo dato disponibile
+                    dati_grafici["dati_oggi"][comune][inquinante] = serie[-1]["valore"]
     
     return dati_grafici
 
@@ -304,7 +328,7 @@ def salva_dati(stazioni, dati_grafici, superamenti):
 def main():
     """Funzione principale."""
     print("=" * 60)
-    print("AGGIORNAMENTO DATI QUALITÀ ARIA - PROVINCIA DI VARESE")
+    print("AGGIORNAMENTO DATI QUALITA ARIA - PROVINCIA DI VARESE")
     print(f"Data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
     
