@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualità dell'Aria - Provincia di Varese</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde: #22c55e;
+            --giallo: #eab308;
+            --rosso: #ef4444;
+            --grigio-chiaro: #f3f4f6;
+            --grigio: #6b7280;
+            --blu: #3b82f6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        .update-info {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .section h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-group label {
+            font-size: 0.9rem;
+            color: var(--grigio);
+            font-weight: 500;
+        }
+        
+        select {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+            min-width: 180px;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--blu);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .chart-wrapper {
+            background: var(--grigio-chiaro);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+        
+        .chart-container.large {
+            height: 350px;
+        }
+        
+        .chart-container.horizontal {
+            height: auto;
+            min-height: 300px;
+        }
+        
+        .legend-box {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+        
+        .legend-color.verde { background: var(--verde); }
+        .legend-color.giallo { background: var(--giallo); }
+        .legend-color.rosso { background: var(--rosso); }
+        
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--blu);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #1e40af;
+        }
+        
+        .soglie-info {
+            font-size: 0.8rem;
+            color: var(--grigio);
+            margin-top: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--grigio);
+            font-size: 0.85rem;
+        }
+        
+        footer a {
+            color: var(--blu);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📊 Qualità dell'Aria - Provincia di Varese</h1>
+            <p>Dati dalle centraline ARPA Lombardia • PM10, PM2.5, NO₂</p>
+            <div class="update-info" id="lastUpdate">Caricamento...</div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Sezione Serie Temporali -->
+        <section class="section">
+            <div class="section-header">
+                <h2>📈 Andamento ultimi 30 giorni</h2>
+                <div class="filter-group">
+                    <label for="comuneFilter">Comune:</label>
+                    <select id="comuneFilter">
+                        <option value="">Caricamento...</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-wrapper">
+                    <h3>PM10 (µg/m³)</h3>
+                    <div class="chart-container">
+                        <canvas id="chartPM10"></canvas>
+                    </div>
+                    <p class="soglie-info">🟢 &lt;35 | 🟡 35-50 | 🔴 &gt;50 µg/m³</p>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>PM2.5 (µg/m³)</h3>
+                    <div class="chart-container">
+                        <canvas id="chartPM25"></canvas>
+                    </div>
+                    <p class="soglie-info">🟢 &lt;20 | 🟡 20-25 | 🔴 &gt;25 µg/m³</p>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>NO₂ (µg/m³)</h3>
+                    <div class="chart-container">
+                        <canvas id="chartNO2"></canvas>
+                    </div>
+                    <p class="soglie-info">🟢 &lt;100 | 🟡 100-200 | 🔴 &gt;200 µg/m³</p>
+                </div>
+            </div>
+            
+            <div class="legend-box">
+                <div class="legend-item">
+                    <div class="legend-color verde"></div>
+                    <span>Buono</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color giallo"></div>
+                    <span>Moderato</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color rosso"></div>
+                    <span>Alto</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sezione Confronto Stazioni -->
+        <section class="section">
+            <div class="section-header">
+                <h2>🏭 Confronto tra centraline</h2>
+                <div class="filter-group">
+                    <label for="inquinanteFilter">Inquinante:</label>
+                    <select id="inquinanteFilter">
+                        <option value="PM10" selected>PM10</option>
+                        <option value="PM2.5">PM2.5</option>
+                        <option value="NO2">NO₂</option>
+                    </select>
+                </div>
+            </div>
+            
+            <p style="color: var(--grigio); font-size: 0.9rem; margin-bottom: 15px;">
+                Media dei valori negli ultimi 30 giorni per ciascuna centralina
+            </p>
+            
+            <div class="chart-wrapper">
+                <div class="chart-container large">
+                    <canvas id="chartConfronto"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sezione Superamenti -->
+        <section class="section">
+            <div class="section-header">
+                <h2>⚠️ Superamenti soglia PM10 (anno <span id="annoCorrente"></span>)</h2>
+            </div>
+            
+            <div class="info-box">
+                <strong>Soglia OMS/UE:</strong> Il limite giornaliero per il PM10 è di 50 µg/m³ come media giornaliera. 
+                La normativa UE consente un massimo di 35 superamenti all'anno.
+            </div>
+            
+            <div class="chart-wrapper" id="chartSuperamentiContainer">
+                <div class="chart-container horizontal">
+                    <canvas id="chartSuperamenti"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>
+            Dati: <a href="https://www.arpalombardia.it" target="_blank" rel="noopener">ARPA Lombardia</a> via 
+            <a href="https://www.dati.lombardia.it" target="_blank" rel="noopener">Open Data Regione Lombardia</a>
+        </p>
+        <p style="margin-top: 8px;">
+            Aggiornamento automatico ogni giorno alle 6:00
+        </p>
+    </footer>
+    
+    <script>
+        // Configurazione colori e soglie
+        const CONFIG = {
+            soglie: {
+                PM10: { verde: 35, giallo: 50 },
+                'PM2.5': { verde: 20, giallo: 25 },
+                NO2: { verde: 100, giallo: 200 }
+            },
+            colori: {
+                verde: '#22c55e',
+                giallo: '#eab308',
+                rosso: '#ef4444',
+                blu: '#3b82f6',
+                grigio: '#9ca3af'
+            }
+        };
+        
+        // Variabili globali
+        let datiGrafici = null;
+        let charts = {};
+        
+        // Funzione per determinare il colore in base al valore
+        function getColore(valore, inquinante) {
+            const soglie = CONFIG.soglie[inquinante];
+            if (!soglie) return CONFIG.colori.grigio;
+            
+            if (valore < soglie.verde) return CONFIG.colori.verde;
+            if (valore < soglie.giallo) return CONFIG.colori.giallo;
+            return CONFIG.colori.rosso;
+        }
+        
+        // Funzione per creare array di colori per ogni punto
+        function getColoriArray(valori, inquinante) {
+            return valori.map(v => getColore(v, inquinante));
+        }
+        
+        // Formatta nome comune (prima lettera maiuscola)
+        function formattaComune(nome) {
+            if (!nome) return '';
+            return nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase();
+        }
+        
+        // Carica i dati
+        async function caricaDati() {
+            try {
+                const response = await fetch('data/dati_grafici.json');
+                if (!response.ok) throw new Error('Dati non disponibili');
+                datiGrafici = await response.json();
+                
+                // Aggiorna info ultimo aggiornamento
+                const dataAggiornamento = new Date(datiGrafici.ultimo_aggiornamento);
+                document.getElementById('lastUpdate').textContent = 
+                    `Ultimo aggiornamento: ${dataAggiornamento.toLocaleDateString('it-IT')} alle ${dataAggiornamento.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'})}`;
+                
+                // Anno corrente per superamenti
+                document.getElementById('annoCorrente').textContent = new Date().getFullYear();
+                
+                // Popola filtro comuni
+                popolaFiltroComuni();
+                
+                // Inizializza grafici
+                inizializzaGrafici();
+                
+            } catch (error) {
+                console.error('Errore caricamento dati:', error);
+                document.getElementById('lastUpdate').textContent = 'Errore nel caricamento dei dati';
+            }
+        }
+        
+        // Popola il dropdown dei comuni
+        function popolaFiltroComuni() {
+            const select = document.getElementById('comuneFilter');
+            select.innerHTML = '';
+            
+            const comuni = datiGrafici.comuni || [];
+            
+            // Trova Varese o usa il primo comune come default
+            const defaultComune = comuni.find(c => c.toUpperCase() === 'VARESE') || comuni[0];
+            
+            comuni.forEach(comune => {
+                const option = document.createElement('option');
+                option.value = comune;
+                option.textContent = formattaComune(comune);
+                if (comune === defaultComune) option.selected = true;
+                select.appendChild(option);
+            });
+            
+            // Event listener per cambio comune
+            select.addEventListener('change', aggiornaGraficiSerieTemporali);
+        }
+        
+        // Inizializza tutti i grafici
+        function inizializzaGrafici() {
+            creaGraficiSerieTemporali();
+            creaGraficoConfronto();
+            creaGraficoSuperamenti();
+            
+            // Event listener per filtro inquinante
+            document.getElementById('inquinanteFilter').addEventListener('change', creaGraficoConfronto);
+        }
+        
+        // Crea i grafici delle serie temporali
+        function creaGraficiSerieTemporali() {
+            const comune = document.getElementById('comuneFilter').value;
+            
+            const inquinantiConfig = [
+                { nome: 'PM10', canvasId: 'chartPM10' },
+                { nome: 'PM2.5', canvasId: 'chartPM25' },
+                { nome: 'NO2', canvasId: 'chartNO2' }
+            ];
+            
+            inquinantiConfig.forEach(({ nome, canvasId }) => {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+                
+                // Distruggi grafico esistente se presente
+                if (charts[canvasId]) {
+                    charts[canvasId].destroy();
+                }
+                
+                const serieData = datiGrafici.serie_temporali?.[comune]?.[nome] || [];
+                const labels = serieData.map(d => d.data);
+                const valori = serieData.map(d => d.valore);
+                const colori = getColoriArray(valori, nome);
+                
+                charts[canvasId] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: nome,
+                            data: valori,
+                            borderColor: CONFIG.colori.blu,
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3,
+                            pointBackgroundColor: colori,
+                            pointBorderColor: colori,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        const date = new Date(context[0].label);
+                                        return date.toLocaleDateString('it-IT', { 
+                                            weekday: 'short', 
+                                            day: 'numeric', 
+                                            month: 'short' 
+                                        });
+                                    },
+                                    label: function(context) {
+                                        return `${context.parsed.y} µg/m³`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    maxRotation: 45,
+                                    minRotation: 45,
+                                    font: { size: 10 },
+                                    callback: function(value, index) {
+                                        if (index % 5 === 0) {
+                                            const label = this.getLabelForValue(value);
+                                            const date = new Date(label);
+                                            return date.toLocaleDateString('it-IT', { day: 'numeric', month: 'short' });
+                                        }
+                                        return '';
+                                    }
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(0,0,0,0.05)' }
+                            }
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Aggiorna grafici quando cambia il comune
+        function aggiornaGraficiSerieTemporali() {
+            creaGraficiSerieTemporali();
+        }
+        
+        // Crea grafico confronto stazioni (barre verticali)
+        function creaGraficoConfronto() {
+            const inquinante = document.getElementById('inquinanteFilter').value;
+            const ctx = document.getElementById('chartConfronto').getContext('2d');
+            
+            if (charts.confronto) {
+                charts.confronto.destroy();
+            }
+            
+            const datiConfronto = datiGrafici.confronto_stazioni?.[inquinante] || [];
+            const labels = datiConfronto.map(d => `${d.stazione}\n(${formattaComune(d.comune)})`);
+            const valori = datiConfronto.map(d => d.valore);
+            const colori = getColoriArray(valori, inquinante);
+            
+            charts.confronto = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `${inquinante} (µg/m³)`,
+                        data: valori,
+                        backgroundColor: colori,
+                        borderColor: colori,
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'x',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    const d = datiConfronto[context[0].dataIndex];
+                                    return `${d.stazione} (${formattaComune(d.comune)})`;
+                                },
+                                label: function(context) {
+                                    return `Media: ${context.parsed.y} µg/m³`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                font: { size: 9 },
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    // Tronca etichette lunghe
+                                    const parts = label.split('\n');
+                                    if (parts[0].length > 15) {
+                                        return parts[0].substring(0, 12) + '...';
+                                    }
+                                    return parts[0];
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            title: {
+                                display: true,
+                                text: 'µg/m³'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Crea grafico superamenti (barre orizzontali)
+        function creaGraficoSuperamenti() {
+            const ctx = document.getElementById('chartSuperamenti').getContext('2d');
+            
+            if (charts.superamenti) {
+                charts.superamenti.destroy();
+            }
+            
+            // I dati sono già ordinati dal più grande al più piccolo dallo script Python
+            const datiSuperamenti = datiGrafici.superamenti || [];
+            
+            const labels = datiSuperamenti.map(d => 
+                `${d.stazione} (${formattaComune(d.comune)})`
+            );
+            const valori = datiSuperamenti.map(d => d.giorni_superamento);
+            
+            // Colori basati sul numero di superamenti rispetto al limite UE (35 giorni)
+            const colori = valori.map(v => {
+                if (v < 20) return CONFIG.colori.verde;
+                if (v < 35) return CONFIG.colori.giallo;
+                return CONFIG.colori.rosso;
+            });
+            
+            // Adatta altezza container al numero di barre
+            const containerHeight = Math.max(300, datiSuperamenti.length * 40 + 80);
+            const chartContainer = document.querySelector('#chartSuperamentiContainer .chart-container');
+            chartContainer.style.height = `${containerHeight}px`;
+            
+            charts.superamenti = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Giorni con superamento',
+                        data: valori,
+                        backgroundColor: colori,
+                        borderColor: colori,
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Barre orizzontali
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const giorni = context.parsed.x;
+                                    return `${giorni} giorni con PM10 > 50 µg/m³`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            title: {
+                                display: true,
+                                text: 'Numero di giorni'
+                            }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Avvia il caricamento
+        document.addEventListener('DOMContentLoaded', caricaDati);
+    </script>
+</body>
+</html>
