@@ -4,14 +4,12 @@ Dashboard automatizzata per il monitoraggio della qualità dell'aria nella provi
 
 ## 🌐 Visualizza la Dashboard
 
-**[👉 Apri la dashboard](https://TUOUSER.github.io/qualita-aria-varese/)**
-
-*(Sostituisci `TUOUSER` con il tuo username GitHub)*
+**[👉 Apri la dashboard](https://sapomnia.github.io/qualita-aria-varese/)**
 
 ## 📈 Cosa mostra
 
+- **Qualità dell'aria giornaliera**: Grafico a barre verticali con valori medi per stazione
 - **Serie temporali (30 giorni)**: Andamento di PM10, PM2.5 e NO₂ con filtro per comune
-- **Confronto centraline**: Grafico a barre verticali con valori medi per stazione
 - **Superamenti soglia**: Giorni con PM10 > 50 µg/m³ dall'inizio dell'anno
 
 ### Scala colori
@@ -22,57 +20,9 @@ Dashboard automatizzata per il monitoraggio della qualità dell'aria nella provi
 | PM2.5 | < 20 µg/m³ | 20-25 µg/m³ | > 25 µg/m³ |
 | NO₂ | < 100 µg/m³ | 100-200 µg/m³ | > 200 µg/m³ |
 
-## 🚀 Setup
-
-### 1. Crea il repository
-
-1. Vai su [github.com/new](https://github.com/new)
-2. Nome: `qualita-aria-varese`
-3. Seleziona "Public"
-4. Clicca "Create repository"
-
-### 2. Carica i file
-
-```bash
-# Clona il repository
-git clone https://github.com/TUOUSER/qualita-aria-varese.git
-cd qualita-aria-varese
-
-# Copia tutti i file del progetto nella cartella
-# (scripts/, docs/, .github/, data/, README.md, ecc.)
-
-# Commit e push
-git add .
-git commit -m "🚀 Setup iniziale"
-git push
-```
-
-### 3. Attiva GitHub Pages
-
-1. Vai su Settings → Pages
-2. Source: **Deploy from a branch**
-3. Branch: **main** / **docs**
-4. Clicca Save
-
-### 4. Esegui il primo aggiornamento
-
-1. Vai su Actions → "Aggiorna dati qualità aria"
-2. Clicca "Run workflow" → "Run workflow"
-3. Attendi ~2 minuti per il completamento
-
-La dashboard sarà disponibile su: `https://TUOUSER.github.io/qualita-aria-varese/`
-
 ## ⏰ Aggiornamento automatico
 
 Lo script viene eseguito automaticamente ogni giorno alle **6:00** (ora italiana).
-
-Per modificare l'orario, modifica il file `.github/workflows/update-data.yml`:
-
-```yaml
-schedule:
-  - cron: '0 5 * * *'   # 6:00 CET (inverno)
-  - cron: '0 4 * * *'   # 6:00 CEST (estate)
-```
 
 ## 📁 Struttura progetto
 
@@ -98,7 +48,7 @@ Per incorporare la dashboard nel tuo sito:
 
 ```html
 <iframe 
-  src="https://TUOUSER.github.io/qualita-aria-varese/" 
+  src="https://sapomnia.github.io/qualita-aria-varese/" 
   width="100%" 
   height="800" 
   frameborder="0">
