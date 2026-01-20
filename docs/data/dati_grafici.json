@@ -1,395 +1,26 @@
 {
-  "ultimo_aggiornamento": "2026-01-20T09:57:21.262121",
-  "stazioni": [
-    "Busto Arsizio  Accam",
-    "Busto Arsizio v.Magenta",
-    "Ferno v.Di Dio",
-    "Gallarate  P.zza S.Lorenzo",
-    "Lonate Pozzolo v.Veneto",
-    "Saronno v.Marconi",
-    "Saronno v.Santuario",
-    "Somma Lombardo v.Facchinetti",
-    "Varese v.Copelli",
-    "Varese v.Vidoletti"
-  ],
+  "ultimo_aggiornamento": "2026-01-20T10:14:39.788177",
   "comuni": [
     "Busto Arsizio",
     "Ferno",
-    "Gallarate",
-    "Lonate Pozzolo",
     "Saronno",
-    "Somma Lombardo",
     "Varese"
   ],
-  "serie_temporali": {
-    "Saronno": {
-      "NO2": [
-        {
-          "data": "2025-12-21",
-          "valore": 60.2
-        },
-        {
-          "data": "2025-12-22",
-          "valore": 64.8
-        },
-        {
-          "data": "2025-12-23",
-          "valore": 58.5
-        },
-        {
-          "data": "2025-12-24",
-          "valore": 45.8
-        },
-        {
-          "data": "2025-12-25",
-          "valore": 34.3
-        },
-        {
-          "data": "2025-12-26",
-          "valore": 36.7
-        },
-        {
-          "data": "2025-12-27",
-          "valore": 44.3
-        },
-        {
-          "data": "2025-12-28",
-          "valore": 46.5
-        },
-        {
-          "data": "2025-12-29",
-          "valore": 67.2
-        },
-        {
-          "data": "2025-12-30",
-          "valore": 57.5
-        },
-        {
-          "data": "2025-12-31",
-          "valore": 54.5
-        },
-        {
-          "data": "2026-01-01",
-          "valore": 55.5
-        },
-        {
-          "data": "2026-01-02",
-          "valore": 55.4
-        },
-        {
-          "data": "2026-01-03",
-          "valore": 71.2
-        },
-        {
-          "data": "2026-01-04",
-          "valore": 74.2
-        },
-        {
-          "data": "2026-01-05",
-          "valore": 64.4
-        },
-        {
-          "data": "2026-01-06",
-          "valore": 56.4
-        },
-        {
-          "data": "2026-01-07",
-          "valore": 71.3
-        },
-        {
-          "data": "2026-01-08",
-          "valore": 97.1
-        },
-        {
-          "data": "2026-01-09",
-          "valore": 80.6
-        },
-        {
-          "data": "2026-01-10",
-          "valore": 82.2
-        },
-        {
-          "data": "2026-01-11",
-          "valore": 39.2
-        },
-        {
-          "data": "2026-01-12",
-          "valore": 77.1
-        },
-        {
-          "data": "2026-01-13",
-          "valore": 104.7
-        },
-        {
-          "data": "2026-01-14",
-          "valore": 67.3
-        },
-        {
-          "data": "2026-01-15",
-          "valore": 87.2
-        },
-        {
-          "data": "2026-01-16",
-          "valore": 86.6
-        },
-        {
-          "data": "2026-01-17",
-          "valore": 42.6
-        },
-        {
-          "data": "2026-01-18",
-          "valore": 22.1
-        },
-        {
-          "data": "2026-01-19",
-          "valore": 32.8
-        },
-        {
-          "data": "2026-01-20",
-          "valore": 43.2
-        }
-      ],
-      "PM10": [
-        {
-          "data": "2025-12-21",
-          "valore": 38.0
-        },
-        {
-          "data": "2025-12-22",
-          "valore": 37.0
-        },
-        {
-          "data": "2025-12-23",
-          "valore": 22.0
-        },
-        {
-          "data": "2025-12-24",
-          "valore": 12.0
-        },
-        {
-          "data": "2025-12-25",
-          "valore": 8.0
-        },
-        {
-          "data": "2025-12-26",
-          "valore": 11.0
-        },
-        {
-          "data": "2025-12-27",
-          "valore": 24.0
-        },
-        {
-          "data": "2025-12-28",
-          "valore": 22.0
-        },
-        {
-          "data": "2025-12-29",
-          "valore": -9999.0
-        },
-        {
-          "data": "2025-12-30",
-          "valore": -9999.0
-        },
-        {
-          "data": "2025-12-31",
-          "valore": -9999.0
-        },
-        {
-          "data": "2026-01-01",
-          "valore": -9999.0
-        },
-        {
-          "data": "2026-01-02",
-          "valore": 45.0
-        },
-        {
-          "data": "2026-01-03",
-          "valore": 43.0
-        },
-        {
-          "data": "2026-01-04",
-          "valore": 40.0
-        },
-        {
-          "data": "2026-01-05",
-          "valore": 31.0
-        },
-        {
-          "data": "2026-01-06",
-          "valore": 28.0
-        },
-        {
-          "data": "2026-01-07",
-          "valore": 39.0
-        },
-        {
-          "data": "2026-01-08",
-          "valore": 53.0
-        },
-        {
-          "data": "2026-01-09",
-          "valore": 62.0
-        },
-        {
-          "data": "2026-01-10",
-          "valore": 45.0
-        },
-        {
-          "data": "2026-01-11",
-          "valore": 12.0
-        },
-        {
-          "data": "2026-01-12",
-          "valore": 38.0
-        },
-        {
-          "data": "2026-01-13",
-          "valore": 53.0
-        },
-        {
-          "data": "2026-01-14",
-          "valore": 51.0
-        },
-        {
-          "data": "2026-01-15",
-          "valore": 63.0
-        },
-        {
-          "data": "2026-01-16",
-          "valore": 67.0
-        },
-        {
-          "data": "2026-01-17",
-          "valore": 47.0
-        },
-        {
-          "data": "2026-01-18",
-          "valore": 30.0
-        },
-        {
-          "data": "2026-01-19",
-          "valore": -9999.0
-        }
-      ],
-      "PM2.5": [
-        {
-          "data": "2025-12-21",
-          "valore": 30.0
-        },
-        {
-          "data": "2025-12-22",
-          "valore": 25.0
-        },
-        {
-          "data": "2025-12-23",
-          "valore": 19.0
-        },
-        {
-          "data": "2025-12-24",
-          "valore": 6.0
-        },
-        {
-          "data": "2025-12-25",
-          "valore": 7.0
-        },
-        {
-          "data": "2025-12-26",
-          "valore": 11.0
-        },
-        {
-          "data": "2025-12-27",
-          "valore": 23.0
-        },
-        {
-          "data": "2025-12-28",
-          "valore": 19.0
-        },
-        {
-          "data": "2025-12-29",
-          "valore": 32.0
-        },
-        {
-          "data": "2025-12-30",
-          "valore": 29.0
-        },
-        {
-          "data": "2025-12-31",
-          "valore": 29.0
-        },
-        {
-          "data": "2026-01-01",
-          "valore": 79.0
-        },
-        {
-          "data": "2026-01-02",
-          "valore": 37.0
-        },
-        {
-          "data": "2026-01-03",
-          "valore": 36.0
-        },
-        {
-          "data": "2026-01-04",
-          "valore": 33.0
-        },
-        {
-          "data": "2026-01-05",
-          "valore": 27.0
-        },
-        {
-          "data": "2026-01-06",
-          "valore": 24.0
-        },
-        {
-          "data": "2026-01-07",
-          "valore": 31.0
-        },
-        {
-          "data": "2026-01-08",
-          "valore": 42.0
-        },
-        {
-          "data": "2026-01-09",
-          "valore": 54.0
-        },
-        {
-          "data": "2026-01-10",
-          "valore": 42.0
-        },
-        {
-          "data": "2026-01-11",
-          "valore": -9999.0
-        },
-        {
-          "data": "2026-01-12",
-          "valore": -9999.0
-        },
-        {
-          "data": "2026-01-13",
-          "valore": -9999.0
-        },
-        {
-          "data": "2026-01-15",
-          "valore": -9999.0
-        },
-        {
-          "data": "2026-01-16",
-          "valore": 57.0
-        },
-        {
-          "data": "2026-01-17",
-          "valore": 35.0
-        },
-        {
-          "data": "2026-01-18",
-          "valore": 27.0
-        },
-        {
-          "data": "2026-01-19",
-          "valore": 23.0
-        }
-      ]
+  "soglie": {
+    "PM10": {
+      "verde": 35,
+      "giallo": 50
     },
+    "PM2.5": {
+      "verde": 20,
+      "giallo": 25
+    },
+    "NO2": {
+      "verde": 100,
+      "giallo": 200
+    }
+  },
+  "serie_temporali": {
     "Varese": {
       "NO2": [
         {
@@ -514,7 +145,7 @@
         },
         {
           "data": "2026-01-20",
-          "valore": 38.3
+          "valore": 39.1
         }
       ],
       "PM2.5": [
@@ -762,7 +393,355 @@
         }
       ]
     },
+    "Busto Arsizio": {
+      "NO2": [
+        {
+          "data": "2025-12-21",
+          "valore": 45.4
+        },
+        {
+          "data": "2025-12-22",
+          "valore": 60.1
+        },
+        {
+          "data": "2025-12-23",
+          "valore": 33.0
+        },
+        {
+          "data": "2025-12-24",
+          "valore": 29.8
+        },
+        {
+          "data": "2025-12-25",
+          "valore": -618.8
+        },
+        {
+          "data": "2025-12-26",
+          "valore": -1232.7
+        },
+        {
+          "data": "2025-12-27",
+          "valore": -177.7
+        },
+        {
+          "data": "2025-12-28",
+          "valore": 42.1
+        },
+        {
+          "data": "2025-12-29",
+          "valore": 58.8
+        },
+        {
+          "data": "2025-12-30",
+          "valore": -146.5
+        },
+        {
+          "data": "2025-12-31",
+          "valore": 41.7
+        },
+        {
+          "data": "2026-01-01",
+          "valore": 38.5
+        },
+        {
+          "data": "2026-01-02",
+          "valore": -401.5
+        },
+        {
+          "data": "2026-01-03",
+          "valore": 67.1
+        },
+        {
+          "data": "2026-01-04",
+          "valore": 67.3
+        },
+        {
+          "data": "2026-01-07",
+          "valore": -844.9
+        },
+        {
+          "data": "2026-01-08",
+          "valore": 102.3
+        },
+        {
+          "data": "2026-01-09",
+          "valore": 82.9
+        },
+        {
+          "data": "2026-01-10",
+          "valore": 82.2
+        },
+        {
+          "data": "2026-01-11",
+          "valore": 26.4
+        },
+        {
+          "data": "2026-01-12",
+          "valore": 82.9
+        },
+        {
+          "data": "2026-01-13",
+          "valore": 66.6
+        },
+        {
+          "data": "2026-01-14",
+          "valore": 47.0
+        },
+        {
+          "data": "2026-01-15",
+          "valore": 95.9
+        },
+        {
+          "data": "2026-01-16",
+          "valore": 96.1
+        },
+        {
+          "data": "2026-01-17",
+          "valore": 52.1
+        },
+        {
+          "data": "2026-01-18",
+          "valore": 35.4
+        },
+        {
+          "data": "2026-01-19",
+          "valore": 55.4
+        },
+        {
+          "data": "2026-01-20",
+          "valore": 79.4
+        }
+      ],
+      "PM10": [
+        {
+          "data": "2025-12-21",
+          "valore": 41.0
+        },
+        {
+          "data": "2025-12-22",
+          "valore": 37.0
+        },
+        {
+          "data": "2025-12-23",
+          "valore": 22.0
+        },
+        {
+          "data": "2025-12-24",
+          "valore": 17.0
+        },
+        {
+          "data": "2025-12-25",
+          "valore": 9.0
+        },
+        {
+          "data": "2025-12-26",
+          "valore": 10.0
+        },
+        {
+          "data": "2025-12-27",
+          "valore": 18.0
+        },
+        {
+          "data": "2025-12-28",
+          "valore": 24.0
+        },
+        {
+          "data": "2025-12-29",
+          "valore": 36.0
+        },
+        {
+          "data": "2025-12-30",
+          "valore": 42.0
+        },
+        {
+          "data": "2025-12-31",
+          "valore": 43.0
+        },
+        {
+          "data": "2026-01-01",
+          "valore": 78.0
+        },
+        {
+          "data": "2026-01-02",
+          "valore": 41.0
+        },
+        {
+          "data": "2026-01-03",
+          "valore": 51.0
+        },
+        {
+          "data": "2026-01-08",
+          "valore": 51.0
+        },
+        {
+          "data": "2026-01-09",
+          "valore": 68.0
+        },
+        {
+          "data": "2026-01-10",
+          "valore": 63.0
+        },
+        {
+          "data": "2026-01-11",
+          "valore": 18.0
+        },
+        {
+          "data": "2026-01-12",
+          "valore": 33.0
+        },
+        {
+          "data": "2026-01-13",
+          "valore": 38.0
+        },
+        {
+          "data": "2026-01-14",
+          "valore": 43.0
+        },
+        {
+          "data": "2026-01-15",
+          "valore": 50.0
+        },
+        {
+          "data": "2026-01-16",
+          "valore": 52.0
+        },
+        {
+          "data": "2026-01-17",
+          "valore": 42.0
+        },
+        {
+          "data": "2026-01-18",
+          "valore": 26.0
+        },
+        {
+          "data": "2026-01-19",
+          "valore": 35.0
+        }
+      ]
+    },
     "Ferno": {
+      "PM10": [
+        {
+          "data": "2025-12-21",
+          "valore": 43.0
+        },
+        {
+          "data": "2025-12-22",
+          "valore": 40.0
+        },
+        {
+          "data": "2025-12-23",
+          "valore": 19.0
+        },
+        {
+          "data": "2025-12-24",
+          "valore": 19.0
+        },
+        {
+          "data": "2025-12-25",
+          "valore": 14.0
+        },
+        {
+          "data": "2025-12-26",
+          "valore": 22.0
+        },
+        {
+          "data": "2025-12-27",
+          "valore": 28.0
+        },
+        {
+          "data": "2025-12-28",
+          "valore": 36.0
+        },
+        {
+          "data": "2025-12-29",
+          "valore": 36.0
+        },
+        {
+          "data": "2025-12-30",
+          "valore": 40.0
+        },
+        {
+          "data": "2025-12-31",
+          "valore": 41.0
+        },
+        {
+          "data": "2026-01-01",
+          "valore": 55.0
+        },
+        {
+          "data": "2026-01-02",
+          "valore": 39.0
+        },
+        {
+          "data": "2026-01-03",
+          "valore": 52.0
+        },
+        {
+          "data": "2026-01-04",
+          "valore": 53.0
+        },
+        {
+          "data": "2026-01-05",
+          "valore": 52.0
+        },
+        {
+          "data": "2026-01-06",
+          "valore": 55.0
+        },
+        {
+          "data": "2026-01-07",
+          "valore": 55.0
+        },
+        {
+          "data": "2026-01-08",
+          "valore": 50.0
+        },
+        {
+          "data": "2026-01-09",
+          "valore": 75.0
+        },
+        {
+          "data": "2026-01-10",
+          "valore": 54.0
+        },
+        {
+          "data": "2026-01-11",
+          "valore": 24.0
+        },
+        {
+          "data": "2026-01-12",
+          "valore": 46.0
+        },
+        {
+          "data": "2026-01-13",
+          "valore": 43.0
+        },
+        {
+          "data": "2026-01-14",
+          "valore": 43.0
+        },
+        {
+          "data": "2026-01-15",
+          "valore": 56.0
+        },
+        {
+          "data": "2026-01-16",
+          "valore": 60.0
+        },
+        {
+          "data": "2026-01-17",
+          "valore": 35.0
+        },
+        {
+          "data": "2026-01-18",
+          "valore": 30.0
+        },
+        {
+          "data": "2026-01-19",
+          "valore": 45.0
+        }
+      ],
       "NO2": [
         {
           "data": "2025-12-21",
@@ -886,205 +865,91 @@
         },
         {
           "data": "2026-01-20",
-          "valore": 43.0
-        }
-      ],
-      "PM10": [
-        {
-          "data": "2025-12-21",
-          "valore": 43.0
-        },
-        {
-          "data": "2025-12-22",
-          "valore": 40.0
-        },
-        {
-          "data": "2025-12-23",
-          "valore": 19.0
-        },
-        {
-          "data": "2025-12-24",
-          "valore": 19.0
-        },
-        {
-          "data": "2025-12-25",
-          "valore": 14.0
-        },
-        {
-          "data": "2025-12-26",
-          "valore": 22.0
-        },
-        {
-          "data": "2025-12-27",
-          "valore": 28.0
-        },
-        {
-          "data": "2025-12-28",
-          "valore": 36.0
-        },
-        {
-          "data": "2025-12-29",
-          "valore": 36.0
-        },
-        {
-          "data": "2025-12-30",
-          "valore": 40.0
-        },
-        {
-          "data": "2025-12-31",
-          "valore": 41.0
-        },
-        {
-          "data": "2026-01-01",
-          "valore": 55.0
-        },
-        {
-          "data": "2026-01-02",
-          "valore": 39.0
-        },
-        {
-          "data": "2026-01-03",
-          "valore": 52.0
-        },
-        {
-          "data": "2026-01-04",
-          "valore": 53.0
-        },
-        {
-          "data": "2026-01-05",
-          "valore": 52.0
-        },
-        {
-          "data": "2026-01-06",
-          "valore": 55.0
-        },
-        {
-          "data": "2026-01-07",
-          "valore": 55.0
-        },
-        {
-          "data": "2026-01-08",
-          "valore": 50.0
-        },
-        {
-          "data": "2026-01-09",
-          "valore": 75.0
-        },
-        {
-          "data": "2026-01-10",
-          "valore": 54.0
-        },
-        {
-          "data": "2026-01-11",
-          "valore": 24.0
-        },
-        {
-          "data": "2026-01-12",
-          "valore": 46.0
-        },
-        {
-          "data": "2026-01-13",
-          "valore": 43.0
-        },
-        {
-          "data": "2026-01-14",
-          "valore": 43.0
-        },
-        {
-          "data": "2026-01-15",
-          "valore": 56.0
-        },
-        {
-          "data": "2026-01-16",
-          "valore": 60.0
-        },
-        {
-          "data": "2026-01-17",
-          "valore": 35.0
-        },
-        {
-          "data": "2026-01-18",
-          "valore": 30.0
-        },
-        {
-          "data": "2026-01-19",
-          "valore": 45.0
+          "valore": 47.9
         }
       ]
     },
-    "Busto Arsizio": {
+    "Saronno": {
       "NO2": [
         {
           "data": "2025-12-21",
-          "valore": 45.4
+          "valore": 60.2
         },
         {
           "data": "2025-12-22",
-          "valore": 60.1
+          "valore": 64.8
         },
         {
           "data": "2025-12-23",
-          "valore": 33.0
+          "valore": 58.5
         },
         {
           "data": "2025-12-24",
-          "valore": 29.8
+          "valore": 45.8
         },
         {
           "data": "2025-12-25",
-          "valore": -618.8
+          "valore": 34.3
         },
         {
           "data": "2025-12-26",
-          "valore": -1232.7
+          "valore": 36.7
         },
         {
           "data": "2025-12-27",
-          "valore": -177.7
+          "valore": 44.3
         },
         {
           "data": "2025-12-28",
-          "valore": 42.1
+          "valore": 46.5
         },
         {
           "data": "2025-12-29",
-          "valore": 58.8
+          "valore": 67.2
         },
         {
           "data": "2025-12-30",
-          "valore": -146.5
+          "valore": 57.5
         },
         {
           "data": "2025-12-31",
-          "valore": 41.7
+          "valore": 54.5
         },
         {
           "data": "2026-01-01",
-          "valore": 38.6
+          "valore": 55.5
         },
         {
           "data": "2026-01-02",
-          "valore": -401.5
+          "valore": 55.4
         },
         {
           "data": "2026-01-03",
-          "valore": 67.1
+          "valore": 71.2
         },
         {
           "data": "2026-01-04",
-          "valore": 67.3
+          "valore": 74.2
+        },
+        {
+          "data": "2026-01-05",
+          "valore": 64.4
+        },
+        {
+          "data": "2026-01-06",
+          "valore": 56.4
         },
         {
           "data": "2026-01-07",
-          "valore": -844.9
+          "valore": 71.3
         },
         {
           "data": "2026-01-08",
-          "valore": 102.3
+          "valore": 97.1
         },
         {
           "data": "2026-01-09",
-          "valore": 82.9
+          "valore": 80.6
         },
         {
           "data": "2026-01-10",
@@ -1092,49 +957,49 @@
         },
         {
           "data": "2026-01-11",
-          "valore": 26.4
+          "valore": 39.2
         },
         {
           "data": "2026-01-12",
-          "valore": 82.9
+          "valore": 77.1
         },
         {
           "data": "2026-01-13",
-          "valore": 66.6
+          "valore": 104.7
         },
         {
           "data": "2026-01-14",
-          "valore": 47.0
+          "valore": 67.3
         },
         {
           "data": "2026-01-15",
-          "valore": 95.9
+          "valore": 87.2
         },
         {
           "data": "2026-01-16",
-          "valore": 96.1
+          "valore": 86.6
         },
         {
           "data": "2026-01-17",
-          "valore": 52.1
+          "valore": 42.6
         },
         {
           "data": "2026-01-18",
-          "valore": 35.3
+          "valore": 22.1
         },
         {
           "data": "2026-01-19",
-          "valore": 55.4
+          "valore": 32.8
         },
         {
           "data": "2026-01-20",
-          "valore": 71.7
+          "valore": 45.0
         }
       ],
       "PM10": [
         {
           "data": "2025-12-21",
-          "valore": 41.0
+          "valore": 38.0
         },
         {
           "data": "2025-12-22",
@@ -1146,194 +1011,288 @@
         },
         {
           "data": "2025-12-24",
-          "valore": 17.0
+          "valore": 12.0
         },
         {
           "data": "2025-12-25",
-          "valore": 9.0
+          "valore": 8.0
         },
         {
           "data": "2025-12-26",
-          "valore": 10.0
+          "valore": 11.0
         },
         {
           "data": "2025-12-27",
-          "valore": 18.0
-        },
-        {
-          "data": "2025-12-28",
           "valore": 24.0
         },
         {
+          "data": "2025-12-28",
+          "valore": 22.0
+        },
+        {
           "data": "2025-12-29",
-          "valore": 36.0
+          "valore": -9999.0
         },
         {
           "data": "2025-12-30",
-          "valore": 42.0
+          "valore": -9999.0
         },
         {
           "data": "2025-12-31",
-          "valore": 43.0
+          "valore": -9999.0
         },
         {
           "data": "2026-01-01",
-          "valore": 78.0
+          "valore": -9999.0
         },
         {
           "data": "2026-01-02",
-          "valore": 41.0
+          "valore": 45.0
         },
         {
           "data": "2026-01-03",
-          "valore": 51.0
-        },
-        {
-          "data": "2026-01-08",
-          "valore": 51.0
-        },
-        {
-          "data": "2026-01-09",
-          "valore": 68.0
-        },
-        {
-          "data": "2026-01-10",
-          "valore": 63.0
-        },
-        {
-          "data": "2026-01-11",
-          "valore": 18.0
-        },
-        {
-          "data": "2026-01-12",
-          "valore": 33.0
-        },
-        {
-          "data": "2026-01-13",
-          "valore": 38.0
-        },
-        {
-          "data": "2026-01-14",
           "valore": 43.0
         },
         {
+          "data": "2026-01-04",
+          "valore": 40.0
+        },
+        {
+          "data": "2026-01-05",
+          "valore": 31.0
+        },
+        {
+          "data": "2026-01-06",
+          "valore": 28.0
+        },
+        {
+          "data": "2026-01-07",
+          "valore": 39.0
+        },
+        {
+          "data": "2026-01-08",
+          "valore": 53.0
+        },
+        {
+          "data": "2026-01-09",
+          "valore": 62.0
+        },
+        {
+          "data": "2026-01-10",
+          "valore": 45.0
+        },
+        {
+          "data": "2026-01-11",
+          "valore": 12.0
+        },
+        {
+          "data": "2026-01-12",
+          "valore": 38.0
+        },
+        {
+          "data": "2026-01-13",
+          "valore": 53.0
+        },
+        {
+          "data": "2026-01-14",
+          "valore": 51.0
+        },
+        {
           "data": "2026-01-15",
-          "valore": 50.0
+          "valore": 63.0
         },
         {
           "data": "2026-01-16",
-          "valore": 52.0
+          "valore": 67.0
         },
         {
           "data": "2026-01-17",
-          "valore": 42.0
+          "valore": 47.0
         },
         {
           "data": "2026-01-18",
-          "valore": 26.0
+          "valore": 30.0
         },
         {
           "data": "2026-01-19",
+          "valore": -9999.0
+        }
+      ],
+      "PM2.5": [
+        {
+          "data": "2025-12-21",
+          "valore": 30.0
+        },
+        {
+          "data": "2025-12-22",
+          "valore": 25.0
+        },
+        {
+          "data": "2025-12-23",
+          "valore": 19.0
+        },
+        {
+          "data": "2025-12-24",
+          "valore": 6.0
+        },
+        {
+          "data": "2025-12-25",
+          "valore": 7.0
+        },
+        {
+          "data": "2025-12-26",
+          "valore": 11.0
+        },
+        {
+          "data": "2025-12-27",
+          "valore": 23.0
+        },
+        {
+          "data": "2025-12-28",
+          "valore": 19.0
+        },
+        {
+          "data": "2025-12-29",
+          "valore": 32.0
+        },
+        {
+          "data": "2025-12-30",
+          "valore": 29.0
+        },
+        {
+          "data": "2025-12-31",
+          "valore": 29.0
+        },
+        {
+          "data": "2026-01-01",
+          "valore": 79.0
+        },
+        {
+          "data": "2026-01-02",
+          "valore": 37.0
+        },
+        {
+          "data": "2026-01-03",
+          "valore": 36.0
+        },
+        {
+          "data": "2026-01-04",
+          "valore": 33.0
+        },
+        {
+          "data": "2026-01-05",
+          "valore": 27.0
+        },
+        {
+          "data": "2026-01-06",
+          "valore": 24.0
+        },
+        {
+          "data": "2026-01-07",
+          "valore": 31.0
+        },
+        {
+          "data": "2026-01-08",
+          "valore": 42.0
+        },
+        {
+          "data": "2026-01-09",
+          "valore": 54.0
+        },
+        {
+          "data": "2026-01-10",
+          "valore": 42.0
+        },
+        {
+          "data": "2026-01-11",
+          "valore": -9999.0
+        },
+        {
+          "data": "2026-01-12",
+          "valore": -9999.0
+        },
+        {
+          "data": "2026-01-13",
+          "valore": -9999.0
+        },
+        {
+          "data": "2026-01-15",
+          "valore": -9999.0
+        },
+        {
+          "data": "2026-01-16",
+          "valore": 57.0
+        },
+        {
+          "data": "2026-01-17",
           "valore": 35.0
+        },
+        {
+          "data": "2026-01-18",
+          "valore": 27.0
+        },
+        {
+          "data": "2026-01-19",
+          "valore": 23.0
         }
       ]
     }
   },
-  "confronto_stazioni": {
-    "PM10": [
-      {
-        "stazione": "Ferno v.Di Dio",
-        "comune": "Ferno",
-        "valore": 42.0
-      },
-      {
-        "stazione": "Busto Arsizio  Accam",
-        "comune": "Busto Arsizio",
-        "valore": 38.0
-      },
-      {
-        "stazione": "Varese v.Copelli",
-        "comune": "Varese",
-        "valore": 29.0
-      },
-      {
-        "stazione": "Saronno v.Santuario",
-        "comune": "Saronno",
-        "valore": -1635.8
-      }
-    ],
-    "PM2.5": [
-      {
-        "stazione": "Varese v.Copelli",
-        "comune": "Varese",
-        "valore": 22.4
-      },
-      {
-        "stazione": "Saronno v.Santuario",
-        "comune": "Saronno",
-        "valore": -1352.4
-      }
-    ],
-    "NO2": [
-      {
-        "stazione": "Saronno v.Santuario",
-        "comune": "Saronno",
-        "valore": 61.0
-      },
-      {
-        "stazione": "Varese v.Copelli",
-        "comune": "Varese",
-        "valore": 51.4
-      },
-      {
-        "stazione": "Ferno v.Di Dio",
-        "comune": "Ferno",
-        "valore": 27.0
-      },
-      {
-        "stazione": "Varese v.Vidoletti",
-        "comune": "Varese",
-        "valore": 26.2
-      },
-      {
-        "stazione": "Busto Arsizio  Accam",
-        "comune": "Busto Arsizio",
-        "valore": -61.3
-      }
-    ]
-  },
-  "soglie": {
-    "PM10": {
-      "verde": 35,
-      "giallo": 50
+  "dati_oggi": {
+    "Varese": {
+      "NO2": 39.1,
+      "PM2.5": 27.0,
+      "PM10": 33.0
     },
-    "PM2.5": {
-      "verde": 20,
-      "giallo": 25
+    "Busto Arsizio": {
+      "NO2": 79.4,
+      "PM10": 35.0
     },
-    "NO2": {
-      "verde": 100,
-      "giallo": 200
+    "Ferno": {
+      "PM10": 45.0,
+      "NO2": 47.9
+    },
+    "Saronno": {
+      "NO2": 45.0,
+      "PM10": -9999.0,
+      "PM2.5": 23.0
     }
   },
+  "inquinanti_disponibili": {
+    "Varese": [
+      "NO2",
+      "PM2.5",
+      "PM10"
+    ],
+    "Busto Arsizio": [
+      "NO2",
+      "PM10"
+    ],
+    "Ferno": [
+      "PM10",
+      "NO2"
+    ],
+    "Saronno": [
+      "NO2",
+      "PM10",
+      "PM2.5"
+    ]
+  },
+  "data_riferimento": "2026-01-20",
   "superamenti": [
     {
-      "stazione": "Ferno v.Di Dio",
       "comune": "Ferno",
       "giorni_superamento": 10
     },
     {
-      "stazione": "Busto Arsizio  Accam",
       "comune": "Busto Arsizio",
       "giorni_superamento": 6
     },
     {
-      "stazione": "Saronno v.Santuario",
       "comune": "Saronno",
       "giorni_superamento": 6
     },
     {
-      "stazione": "Varese v.Copelli",
       "comune": "Varese",
       "giorni_superamento": 2
     }
