@@ -61,6 +61,17 @@ def formatta_comune(nome):
     return ' '.join(word.capitalize() for word in nome.split())
 
 
+def is_valore_valido(valore):
+    """Verifica se un valore è valido (non nullo e non negativo)."""
+    if valore is None:
+        return False
+    try:
+        v = float(valore)
+        return v >= 0
+    except (ValueError, TypeError):
+        return False
+
+
 def fetch_stazioni():
     """Scarica l'elenco delle stazioni della provincia di Varese."""
     print(f"Scaricamento stazioni provincia {PROVINCIA}...")
@@ -172,13 +183,12 @@ def calcola_superamenti(dati_anno, stazioni):
             continue
         
         valore = record.get("valore")
-        if valore is None:
+        
+        # Filtra valori non validi (nulli o negativi)
+        if not is_valore_valido(valore):
             continue
         
-        try:
-            valore = float(valore)
-        except (ValueError, TypeError):
-            continue
+        valore = float(valore)
         
         data_str = record.get("data", "")[:10]
         if not data_str:
@@ -220,8 +230,8 @@ def prepara_dati_grafici(dati, stazioni):
         "comuni": [],
         "soglie": SOGLIE,
         "serie_temporali": {},
-        "dati_oggi": {},  # Nuovo: dati giornalieri per "La qualità dell'aria oggi"
-        "inquinanti_disponibili": {}  # Nuovo: traccia quali inquinanti sono disponibili per comune
+        "dati_oggi": {},
+        "inquinanti_disponibili": {}
     }
     
     # Estrai lista comuni unici (formattati)
@@ -234,15 +244,18 @@ def prepara_dati_grafici(dati, stazioni):
     # Organizza i dati per comune e inquinante
     dati_per_comune = {}
     
-    # Trova la data più recente nei dati
+    # Trova la data più recente nei dati (considerando solo valori validi)
     date_disponibili = set()
     for record in dati:
-        data = record.get("data", "")[:10]
-        if data:
-            date_disponibili.add(data)
+        if is_valore_valido(record.get("valore")):
+            data = record.get("data", "")[:10]
+            if data:
+                date_disponibili.add(data)
     
     data_oggi = max(date_disponibili) if date_disponibili else datetime.now().strftime("%Y-%m-%d")
     dati_grafici["data_riferimento"] = data_oggi
+    
+    valori_scartati = 0
     
     for record in dati:
         idsensore = record.get("idsensore")
@@ -254,13 +267,13 @@ def prepara_dati_grafici(dati, stazioni):
         inquinante = info["inquinante"]
         
         valore = record.get("valore")
-        if valore is None:
+        
+        # Filtra valori non validi (nulli o negativi)
+        if not is_valore_valido(valore):
+            valori_scartati += 1
             continue
         
-        try:
-            valore = float(valore)
-        except (ValueError, TypeError):
-            continue
+        valore = float(valore)
         
         data = record.get("data", "")[:10]
         if not data:
@@ -274,6 +287,9 @@ def prepara_dati_grafici(dati, stazioni):
             dati_per_comune[comune][inquinante][data] = []
         dati_per_comune[comune][inquinante][data].append(valore)
     
+    if valori_scartati > 0:
+        print(f"  Scartati {valori_scartati} valori non validi (nulli o negativi)")
+    
     # Calcola serie temporali e dati di oggi
     for comune, inquinanti in dati_per_comune.items():
         dati_grafici["serie_temporali"][comune] = {}
@@ -284,11 +300,13 @@ def prepara_dati_grafici(dati, stazioni):
             # Serie temporale
             serie = []
             for data, valori in sorted(date_valori.items()):
-                media = sum(valori) / len(valori)
-                serie.append({
-                    "data": data,
-                    "valore": round(media, 1)
-                })
+                # Calcola media solo con valori validi (già filtrati)
+                if valori:
+                    media = sum(valori) / len(valori)
+                    serie.append({
+                        "data": data,
+                        "valore": round(media, 1)
+                    })
             
             if serie:  # Solo se ci sono dati
                 dati_grafici["serie_temporali"][comune][inquinante] = serie
