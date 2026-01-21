@@ -39,7 +39,7 @@
         }
         
         header {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            background: #991427;
             color: white;
             padding: 30px 20px;
             margin-bottom: 30px;
@@ -370,6 +370,11 @@
         let datiGrafici = null;
         let charts = {};
         
+        // Funzione per verificare se un valore è valido (non negativo e non nullo)
+        function isValoreValido(valore) {
+            return valore !== null && valore !== undefined && valore >= 0;
+        }
+        
         // Funzione per determinare il colore in base al valore
         function getColore(valore, inquinante) {
             const soglie = CONFIG.soglie[inquinante];
@@ -404,7 +409,7 @@
                 if (datiGrafici.data_riferimento) {
                     const dataRif = new Date(datiGrafici.data_riferimento);
                     document.getElementById('dataRiferimento').textContent = 
-                        `Valori di ${dataRif.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}`;
+                        `Valori del ${dataRif.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}`;
                 }
                 
                 // Popola filtro comuni
@@ -460,13 +465,14 @@
                 charts.oggi.destroy();
             }
             
-            // Prepara dati per ogni comune
+            // Prepara dati per ogni comune, filtrando valori negativi
             const datiOggi = [];
             const comuni = datiGrafici.comuni || [];
             
             comuni.forEach(comune => {
                 const valore = datiGrafici.dati_oggi?.[comune]?.[inquinante];
-                if (valore !== undefined) {
+                // Includi solo se il valore è valido (>= 0)
+                if (isValoreValido(valore)) {
                     datiOggi.push({
                         comune: comune,
                         valore: valore
@@ -556,9 +562,18 @@
                     return;
                 }
                 
+                // Filtra i dati della serie escludendo valori negativi
+                const serieDataRaw = datiGrafici.serie_temporali?.[comune]?.[nome] || [];
+                const serieData = serieDataRaw.filter(d => isValoreValido(d.valore));
+                
+                // Se non ci sono dati validi, nascondi il grafico
+                if (serieData.length === 0) {
+                    wrapper.classList.add('hidden');
+                    return;
+                }
+                
                 wrapper.classList.remove('hidden');
                 
-                const serieData = datiGrafici.serie_temporali?.[comune]?.[nome] || [];
                 const labels = serieData.map(d => d.data);
                 const valori = serieData.map(d => d.valore);
                 const colori = getColoriArray(valori, nome);
