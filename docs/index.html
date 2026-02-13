@@ -696,10 +696,10 @@
             // Colori basati sul numero di superamenti rispetto al limite UE (35 giorni)
             // Usiamo le stesse fasce di colore del PM10 per coerenza visiva
             const colori = valori.map(v => {
-                if (v <= 20) return '#4FF0E6';
-                if (v <= 35) return '#51CCAA';
-                if (v <= 50) return '#F0E641';
-                if (v <= 100) return '#FA5050';
+                if (v <= 7) return '#4FF0E6';
+                if (v <= 14) return '#51CCAA';
+                if (v <= 21) return '#F0E641';
+                if (v <= 28) return '#FA5050';
                 return '#960132';
             });
             
