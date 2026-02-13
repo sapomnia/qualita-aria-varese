@@ -11,9 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --verde: #22c55e;
-            --giallo: #eab308;
-            --rosso: #ef4444;
             --grigio-chiaro: #f3f4f6;
             --grigio: #6b7280;
             --blu: #3b82f6;
@@ -156,7 +153,7 @@
         
         .legend-box {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             margin-top: 15px;
             padding-top: 15px;
@@ -176,10 +173,6 @@
             height: 16px;
             border-radius: 4px;
         }
-        
-        .legend-color.verde { background: var(--verde); }
-        .legend-color.giallo { background: var(--giallo); }
-        .legend-color.rosso { background: var(--rosso); }
         
         .info-box {
             background: #eff6ff;
@@ -232,6 +225,14 @@
             header h1 {
                 font-size: 1.4rem;
             }
+            
+            .legend-box {
+                gap: 10px;
+            }
+            
+            .legend-item {
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -245,7 +246,7 @@
     </header>
     
     <main class="container">
-        <!-- Sezione La qualità dell'aria oggi (era Confronto Stazioni) -->
+        <!-- Sezione La qualità dell'aria oggi -->
         <section class="section">
             <div class="section-header">
                 <h2>La qualità dell'aria oggi</h2>
@@ -267,19 +268,8 @@
                 </div>
             </div>
             
-            <div class="legend-box">
-                <div class="legend-item">
-                    <div class="legend-color verde"></div>
-                    <span>Buono</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color giallo"></div>
-                    <span>Moderato</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color rosso"></div>
-                    <span>Alto</span>
-                </div>
+            <div class="legend-box" id="legendaOggi">
+                <!-- Popolata dinamicamente -->
             </div>
         </section>
         
@@ -301,21 +291,21 @@
                     <div class="chart-container">
                         <canvas id="chartPM10"></canvas>
                     </div>
-                    <p class="soglie-info">Verde &lt;35 | Giallo 35-50 | Rosso &gt;50 µg/m³</p>
+                    <div class="legend-box legend-pm10"></div>
                 </div>
                 <div class="chart-wrapper" id="wrapperPM25">
                     <h3>PM2.5 (µg/m³)</h3>
                     <div class="chart-container">
                         <canvas id="chartPM25"></canvas>
                     </div>
-                    <p class="soglie-info">Verde &lt;20 | Giallo 20-25 | Rosso &gt;25 µg/m³</p>
+                    <div class="legend-box legend-pm25"></div>
                 </div>
                 <div class="chart-wrapper" id="wrapperNO2">
                     <h3>NO2 (µg/m³)</h3>
                     <div class="chart-container">
                         <canvas id="chartNO2"></canvas>
                     </div>
-                    <p class="soglie-info">Verde &lt;100 | Giallo 100-200 | Rosso &gt;200 µg/m³</p>
+                    <div class="legend-box legend-no2"></div>
                 </div>
             </div>
         </section>
@@ -328,7 +318,7 @@
             
             <div class="info-box">
                 <strong>Soglia OMS/UE:</strong> Il limite giornaliero per il PM10 è di 50 µg/m³ come media giornaliera. 
-                La normativa UE consente un massimo di 35 superamenti all'anno.
+                La normativa UE consente un massimo di 35 superamenti all'anno (linea rossa).
             </div>
             
             <div class="chart-wrapper" id="chartSuperamentiContainer">
@@ -350,18 +340,34 @@
     </footer>
     
     <script>
-        // Configurazione colori e soglie
+        // Configurazione colori e soglie per ogni inquinante
         const CONFIG = {
-            soglie: {
-                PM10: { verde: 35, giallo: 50 },
-                'PM2.5': { verde: 20, giallo: 25 },
-                NO2: { verde: 100, giallo: 200 }
+            fasce: {
+                PM10: [
+                    { max: 20, colore: '#4FF0E6', etichetta: '0-20' },
+                    { max: 35, colore: '#51CCAA', etichetta: '20-35' },
+                    { max: 50, colore: '#F0E641', etichetta: '35-50' },
+                    { max: 100, colore: '#FA5050', etichetta: '50-100' },
+                    { max: Infinity, colore: '#960132', etichetta: '>100' }
+                ],
+                'PM2.5': [
+                    { max: 10, colore: '#4FF0E6', etichetta: '0-10' },
+                    { max: 20, colore: '#51CCAA', etichetta: '10-20' },
+                    { max: 25, colore: '#F0E641', etichetta: '20-25' },
+                    { max: 50, colore: '#FA5050', etichetta: '25-50' },
+                    { max: Infinity, colore: '#960132', etichetta: '>50' }
+                ],
+                NO2: [
+                    { max: 40, colore: '#4FF0E6', etichetta: '0-40' },
+                    { max: 100, colore: '#51CCAA', etichetta: '40-100' },
+                    { max: 200, colore: '#F0E641', etichetta: '100-200' },
+                    { max: 400, colore: '#FA5050', etichetta: '200-400' },
+                    { max: Infinity, colore: '#960132', etichetta: '>400' }
+                ]
             },
             colori: {
-                verde: '#22c55e',
-                giallo: '#eab308',
-                rosso: '#ef4444',
                 blu: '#3b82f6',
+                rosso: '#ef4444',
                 grigio: '#9ca3af'
             }
         };
@@ -375,19 +381,35 @@
             return valore !== null && valore !== undefined && valore >= 0;
         }
         
-        // Funzione per determinare il colore in base al valore
+        // Funzione per determinare il colore in base al valore e all'inquinante
         function getColore(valore, inquinante) {
-            const soglie = CONFIG.soglie[inquinante];
-            if (!soglie) return CONFIG.colori.grigio;
+            const fasce = CONFIG.fasce[inquinante];
+            if (!fasce) return CONFIG.colori.grigio;
             
-            if (valore < soglie.verde) return CONFIG.colori.verde;
-            if (valore < soglie.giallo) return CONFIG.colori.giallo;
-            return CONFIG.colori.rosso;
+            for (const fascia of fasce) {
+                if (valore <= fascia.max) {
+                    return fascia.colore;
+                }
+            }
+            return fasce[fasce.length - 1].colore;
         }
         
         // Funzione per creare array di colori per ogni punto
         function getColoriArray(valori, inquinante) {
             return valori.map(v => getColore(v, inquinante));
+        }
+        
+        // Funzione per generare la legenda per un inquinante
+        function generaLegenda(inquinante) {
+            const fasce = CONFIG.fasce[inquinante];
+            if (!fasce) return '';
+            
+            return fasce.map(fascia => `
+                <div class="legend-item">
+                    <div class="legend-color" style="background: ${fascia.colore};"></div>
+                    <span>${fascia.etichetta}</span>
+                </div>
+            `).join('');
         }
         
         // Carica i dati
@@ -414,6 +436,11 @@
                 
                 // Popola filtro comuni
                 popolaFiltroComuni();
+                
+                // Genera legende statiche per le serie temporali
+                document.querySelector('.legend-pm10').innerHTML = generaLegenda('PM10');
+                document.querySelector('.legend-pm25').innerHTML = generaLegenda('PM2.5');
+                document.querySelector('.legend-no2').innerHTML = generaLegenda('NO2');
                 
                 // Inizializza grafici
                 inizializzaGrafici();
@@ -464,6 +491,9 @@
             if (charts.oggi) {
                 charts.oggi.destroy();
             }
+            
+            // Aggiorna legenda dinamica
+            document.getElementById('legendaOggi').innerHTML = generaLegenda(inquinante);
             
             // Prepara dati per ogni comune, filtrando valori negativi
             const datiOggi = [];
@@ -664,10 +694,13 @@
             const valori = datiSuperamenti.map(d => d.giorni_superamento);
             
             // Colori basati sul numero di superamenti rispetto al limite UE (35 giorni)
+            // Usiamo le stesse fasce di colore del PM10 per coerenza visiva
             const colori = valori.map(v => {
-                if (v < 20) return CONFIG.colori.verde;
-                if (v < 35) return CONFIG.colori.giallo;
-                return CONFIG.colori.rosso;
+                if (v <= 20) return '#4FF0E6';
+                if (v <= 35) return '#51CCAA';
+                if (v <= 50) return '#F0E641';
+                if (v <= 100) return '#FA5050';
+                return '#960132';
             });
             
             // Adatta altezza container al numero di barre
