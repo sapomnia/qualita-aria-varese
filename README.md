@@ -12,14 +12,6 @@ Dashboard automatizzata per il monitoraggio della qualità dell'aria nella provi
 - **Serie temporali (30 giorni)**: Andamento di PM10, PM2.5 e NO₂ con filtro per comune
 - **Superamenti soglia**: Giorni con PM10 > 50 µg/m³ dall'inizio dell'anno
 
-### Scala colori
-
-| Inquinante | 🟢 Buono | 🟡 Moderato | 🔴 Alto |
-|------------|----------|-------------|---------|
-| PM10 | < 35 µg/m³ | 35-50 µg/m³ | > 50 µg/m³ |
-| PM2.5 | < 20 µg/m³ | 20-25 µg/m³ | > 25 µg/m³ |
-| NO₂ | < 100 µg/m³ | 100-200 µg/m³ | > 200 µg/m³ |
-
 ## ⏰ Aggiornamento automatico
 
 Lo script viene eseguito automaticamente ogni giorno alle **6:00** (ora italiana).
